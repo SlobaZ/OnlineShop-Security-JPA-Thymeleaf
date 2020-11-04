@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorator="layout">
+<head>
+<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/font-awesome-4.5.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/styles.css}" />
+<title>Proizvodi</title>
+</head>
+<body>
+
+
+
+<div layout:fragment="content">
+	<h3 class="centrirano">Proizvodi</h3>
+	
+	<div sec:authorize="hasRole('ADMIN')">
+			<h5>You will see this only if you are ADMIN</h5>
+	</div>
+	
+	<div class="row">	
+	
+	<div class="col-md-7">
+		<h4>Pretraga proizvoda:</h4>
+		
+ <form th:object="${proizvodi}" th:action="@{/proizvodi}" method="get">
+    <div class="form-group">
+        <input type="text" name="naziv" id="naziv" th:value="${naziv}" placeholder="Naziv"/>
+    </div>
+    
+    <div class="form-group">
+        <input type="text" name="marka" id="marka" th:value="${marka}" placeholder="Marka"/> 
+    </div>
+    
+     <div class="form-group">   
+        <select  id="kategorija" name="kategorija" >  
+       		<option value=""> --- Kategorija --- </option>
+            <option th:each="kategorija : ${kategorije}"
+                    th:value="${{kategorija}}"
+                    th:selected="${kategorija == kategorije}"
+                    th:text="${kategorija}">   
+        </option>
+    </select>
+     </div>
+
+    <div class="form-group">
+        <input type="number" name="cena" id="cena" th:value="${cena}" placeholder="Cena"/>
+    </div>
+    <div class="form-group">    
+        <input type="submit" value="Search"/>  
+    </div>      	
+</form>
+
+</div>
+
+<div class="col-md-5" sec:authorize="hasRole('ADMIN')">
+	<br/>
+	<h3 class="centrirano">Unos novog proizvoda:</h3>
+	<br/>
+	<div class="centrirano">
+
+	<form th:action="@{/admin/addproizvod}" method="get">
+    <button class="btn btn-warning btn-lg" type="Submit">+ Add New</button>
+	</form>
+
+	</div>
+</div>		
+	
+</div>   
+		
+<div th:if="${not #lists.isEmpty(proizvodi)}">   
+<div class="col-12">
+<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Naziv</th>
+						<th>Marka</th>
+						<th>Photo</th>
+						<th>Kolicina</th>
+						<th>Cena</th>
+						<th>Kategorija</th>
+						<th sec:authorize="hasRole('ADMIN')">Izmeni</th>
+						<th sec:authorize="hasRole('ADMIN')">Obrisi</th>
+					</tr>
+				</thead>
+				<tbody class="redovi">
+					<tr th:each ="proizvodi : ${proizvodi}">
+						<td th:utext="${proizvodi.naziv}"></td>
+						<td th:utext="${proizvodi.marka}"></td>
+						<td><img th:src="@{'/images/'+${proizvodi.photo}}" width="65" height="65" /></td>  
+						<td th:utext="${proizvodi.kolicina}"></td>
+						<td th:utext="${proizvodi.cena}"></td>
+						<td th:utext="${proizvodi.kategorija}"></td>
+
+<td sec:authorize="hasRole('ADMIN')"> <a th:href="@{/admin/editproizvod/{id}(id=${proizvodi.id})}" class="btn btn-success btn-sm" role="button">Update</a> </td>
+<td sec:authorize="hasRole('ADMIN')"> <a th:href="@{/admin/deleteproizvod/{id}(id=${proizvodi.id})}" class="btn btn-danger btn-sm" role="button">Delete</a> </td>
+					</tr>
+				</tbody>
+</table>
+			
+
+			
+<nav aria-label="Pagination" th:if="${proizvodi.totalPages gt 0}">
+    <ul class="pagination justify-content-center font-weight-medium">
+        <li class="page-item" th:classappend="${proizvodi.number eq 0} ? 'disabled'">
+            <a class="page-link svg-icon"
+               th:href="@{/proizvodi?page={id}(id=${proizvodi.number lt 2 ? 1 : proizvodi.number})}"
+               aria-label="Previous"
+               title="Previous Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-left" width="20" height="20">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${i eq proizvodi.number + 1} ? 'active'"
+            th:each="i : ${#numbers.sequence( proizvodi.number + 1, proizvodi.totalPages > 10 + proizvodi.number ? proizvodi.number + 10 : proizvodi.totalPages, 1)}">
+            <a class="page-link" th:href="@{/proizvodi?page={id}(id=${i})}" th:text="${i}"
+               th:title="${'Page '+ i}"
+               rel="tooltip"></a>
+        </li>
+        <li class="page-item disabled" th:if="${proizvodi.number + 10 < proizvodi.totalPages}">
+            <a class="page-link svg-icon" href="#">
+                <span data-feather="more-horizontal" width="20" height="20"></span>
+            </a>
+        </li>
+        <li class="page-item" th:classappend="${proizvodi.number + 1 eq proizvodi.totalPages} ? 'disabled'">
+            <a class="page-link svg-icon" th:href="@{/proizvodi?page={id}(id=${proizvodi.number + 2})}"
+               aria-label="Next"
+               title="Next Page" rel="tooltip">
+                <span aria-hidden="true" data-feather="chevrons-right" width="20" height="20">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+			
+</div>
+</div>		
+<br/>			
+	</div>   
+
+
+
+	<script th:src="@{'/assets/js/jquery-2.1.4.min.js'}"></script>
+	<script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorator="layout">
+<head>
+<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/font-awesome-4.5.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/styles.css}" />
+<title>Kreiraj Kupovinu</title>
+</head>
+<body>
+
+
+
+<div layout:fragment="content">
+	<h5 class="centrirano">Kupovina je kreirana</h5>
+
+<form>
+<h3 th:utext="${pozdravnaPorukaUseru}"></h3>
+</form>	
+
+ <div class="col-md-6" >
+<form th:object="${kupovina}" th:action="@{/user/kupovinastavki}" method="get" >
+	<h3 th:utext="${kupovina.id}"></h3>
+	<br/>
+    <button class="btn btn-lg btn-success btn-block" type="Submit">Zapocni kupovinu</button>
+</form>
+</div>	
+
+</div>
+
+
+
+	<script th:src="@{'/assets/js/jquery-2.1.4.min.js'}"></script>
+	<script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
+</body>
+</html>

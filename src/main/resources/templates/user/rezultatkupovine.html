@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorator="layout">
+<head>
+<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/font-awesome-4.5.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/styles.css}" />
+<title>Rezultat Kupovine</title>
+</head>
+<body>
+
+
+
+<div layout:fragment="content">
+
+
+<div class="row">		
+<div class="col-md-12">		
+<form>
+<h3 th:utext="${pozdravnaPorukaUseru}"></h3>
+<p>Uspesno obavljena kupovina broj:</p>
+<h4 th:utext="${kupovina.id}"></h4>		
+<p>Sifra:</p>
+<h4 th:utext="${kupovina.sifra}"></h4>	
+</form>	
+</div>
+
+
+<div class="col-md-12">	
+<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Proizvod</th>
+						<th>Cena Proizvoda</th>
+						<th>Komada</th>
+						<th>Cena Stavke</th>
+					</tr>
+				</thead>
+				<tbody class="redovi">
+					<tr th:each ="stavke : ${stavke}" th:if="${stavke.cenastavke != 0.0}">
+						<td th:utext="${stavke.proizvod.naziv}"></td>
+						<td th:utext="${stavke.proizvod.cena}"> din</td>		
+   						<td th:utext="${stavke.kolicinastavke}"> </td> 
+						<td th:utext="${stavke.cenastavke}"></td>
+					</tr>
+					<tr style="border=1px solid black">
+						<td></td>
+						<td></td>
+						<td><h3>Ukupno:</h3></td>
+						<td><h3 th:utext="${kupovina.ukupnacena}"></h3></td>
+					</tr>
+				</tbody>
+</table>
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+	<script th:src="@{'/assets/js/jquery-2.1.4.min.js'}"></script>
+	<script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
+</body>
+</html>

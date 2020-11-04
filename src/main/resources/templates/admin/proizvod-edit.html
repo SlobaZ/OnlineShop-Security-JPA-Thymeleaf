@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Proizvod</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}" />
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<br/>
+
+<div class="container">
+<br/>
+<form th:action="@{/proizvodi}" method="get">
+    <button class="btn btn-lg btn-primary btn-block" type="Submit">GO BACK</button>
+</form>
+    <h2>Edit Proizvod</h2>
+    <form action="#" th:action="@{/admin/editProizvod}" method="post" th:object="${proizvod}" enctype="multipart/form-data">
+        Naziv proizvoda:<br/>
+        <label th:if="${#fields.hasErrors('naziv')}" th:errors="*{naziv}" class="validation-message">Naziv proizvoda</label>
+        <input type="text" class="form-control" id="naziv" th:field="*{naziv}" placeholder="Naziv proizvoda"/>
+        <br/>
+        Marka proizvoda:<br/>
+        <label th:if="${#fields.hasErrors('marka')}" th:errors="*{marka}" class="validation-message">Marka proizvoda</label>
+        <input type="text" class="form-control" id="marka" th:field="*{marka}" placeholder="Marka proizvoda"/>
+        <br/>
+        Photo:<br/>
+        <input type="file" name="file"  class="form-control"/>
+        <br/>
+        Kolicina:<br/>
+        <label th:if="${#fields.hasErrors('kolicina')}" th:errors="*{kolicina}" class="validation-message">Kolicina</label>
+        <input type="text" class="form-control" id="kolicina" th:field="*{kolicina}"  placeholder="Kolicina"/>
+        <br/>
+        Cena:<br/>
+        <label th:if="${#fields.hasErrors('cena')}" th:errors="*{cena}" class="validation-message">Cena</label>
+        <input type="text" class="form-control" id="cena" th:field="*{cena}" placeholder="Cena"/>
+      
+        <input type="hidden" id="id" th:field="*{id}">
+        <br/>
+        <button type="submit" class="btn btn-info">Edit</button>
+        <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+    </form>
+</div>
+
+	<script th:src="@{'/assets/js/jquery-2.1.4.min.js'}"></script>
+	<script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
+
+</body>
+</html>

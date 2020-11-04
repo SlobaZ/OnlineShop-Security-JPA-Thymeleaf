@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorator="layout">
+<head>
+<link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/font-awesome-4.5.0/css/font-awesome.min.css}" />
+<link rel="stylesheet" th:href="@{/assets/css/styles.css}" />
+<title>Kupi</title>
+</head>
+<body>
+
+
+
+<div layout:fragment="content">
+
+
+<div class="row">		
+<div class="col-md-12">		
+<form>
+<h3 th:utext="${pozdravnaPorukaUseru}"></h3>
+<h4 th:utext="${kupovina.id}"></h4>		
+</form>	
+</div>
+
+
+<div class="col-md-12">	
+<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>Proizvod</th>
+						<th>Na lageru</th>
+						<th>Cena</th>
+						<th>Komada</th>
+						<th>Actions</th>
+						<th>Cena Stavke</th>
+						<th>Resetuj</th>
+
+					</tr>
+				</thead>
+				<tbody class="redovi">
+					<tr th:each ="stavke : ${stavke}" >
+						<td th:utext="${stavke.proizvod.naziv}"></td>
+						<td th:utext="${stavke.proizvod.kolicina}"></td>
+						<td th:utext="${stavke.proizvod.cena}"> din</td>		
+   						<td th:utext="${stavke.kolicinastavke}"> </td> 
+   						<td>
+   <form th:object="${stavka}" th:action="@{/user/kupitistavku/{id}(id=${stavke.id})}" method="get">
+   <input type="number" name="kolicinastavke" id="kolicinastavke" th:value="${kolicinastavke}" placeholder="Kolicina"/>
+   <input type="submit" class="btn btn-primary btn-md" role="button" value="Odaberi Stavku"/> 
+   </form>
+    					</td>
+						<td th:utext="${stavke.cenastavke}"></td>
+<td> <a th:href="@{/user/resetujstavku/{id}(id=${stavke.id})}" class="btn btn-danger btn-md" role="button">Resetuj</a> </td>
+
+					</tr>
+					
+					<tr style="border=1px solid black">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>						
+	<td> <a th:href="@{/user/kupi/{id}(id=${kupovina.id})}" class="btn btn-success btn-lg" role="button"> Kupi </a> </td>
+						<td></td>
+					</tr>
+				</tbody>
+</table>
+</div>
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+	<script th:src="@{'/assets/js/jquery-2.1.4.min.js'}"></script>
+	<script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
+</body>
+</html>
