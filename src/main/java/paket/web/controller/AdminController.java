@@ -153,8 +153,8 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	public String sviItrazeniUsers (@RequestParam (required = false) String username,
-										@RequestParam (required = false) String mesto,
-										HttpServletRequest request, Model model) {
+					@RequestParam (required = false) String mesto,
+					HttpServletRequest request, Model model) {
 	    
 		int page = 0;
 		int size = 5;
@@ -236,11 +236,11 @@ public class AdminController {
     
 	    @RequestMapping(value = "/admin/kupovine", method = RequestMethod.GET)
 		public String sveItrazeneKupovine(@RequestParam(value = "userid",required=false) Integer userid, 
-											@RequestParam(value = "sifra",required=false) String sifra, 
-											@RequestParam(value = "ukupnacena",required=false) Double ukupnacena, 
-											@RequestParam(value = "datumvremepocetak",required=false) String datumvremepocetak,
-											@RequestParam(value = "datumvremekraj",required=false) String datumvremekraj, 
-											HttpServletRequest request, Model model) {
+							@RequestParam(value = "sifra",required=false) String sifra, 
+							@RequestParam(value = "ukupnacena",required=false) Double ukupnacena, 
+							@RequestParam(value = "datumvremepocetak",required=false) String datumvremepocetak,
+							@RequestParam(value = "datumvremekraj",required=false) String datumvremekraj, 
+							HttpServletRequest request, Model model) {
 		    
 	    	    	
 			int page = 0;
