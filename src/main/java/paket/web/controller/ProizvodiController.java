@@ -35,10 +35,10 @@ public class ProizvodiController {
 		
 	@RequestMapping(value = "/proizvodi", method = RequestMethod.GET)
 	public String searchProizvodi(@RequestParam (required = false) String naziv,
-										@RequestParam (required = false) String marka,
-										@RequestParam (required = false) Kategorija kategorija,
-										@RequestParam (required = false) Double cena,
-										HttpServletRequest request, Model model) {
+					@RequestParam (required = false) String marka,
+					@RequestParam (required = false) Kategorija kategorija,
+					@RequestParam (required = false) Double cena,
+					HttpServletRequest request, Model model) {
 	    
 		
 		model.addAttribute("kategorije", paket.model.Kategorija.values());
