@@ -115,7 +115,7 @@ public class KupiController {
     	Kupovina kupovina = kupovinaService.getOne(id);
     	kupovina = kupovinaService.kupi(id);
 		if(kupovina==null) {
-			return null;
+			return "redirect:/user/kupovinastavki";
 		}
 		model.addAttribute("kupovina", kupovina);
 		List<Stavka> stavke = stavkaService.findByIdKupovine(kupovina.getId());
