@@ -32,7 +32,7 @@ public class Proizvod {
 	@NotEmpty(message = "*Please provide a marka")
 	private String marka;
 	@Column(nullable=false)
-	@Positive(message = "*Only positive number")
+	@PositiveOrZero(message = "*Only positive number")
 	private Integer kolicina;
 	@Column(nullable=false)
 	@Positive(message = "*Only positive number")
