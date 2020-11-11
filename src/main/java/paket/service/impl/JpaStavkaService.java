@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import paket.model.Kupovina;
 import paket.model.Proizvod;
 import paket.model.Stavka;
+import paket.model.User;
 import paket.repository.ProizvodRepository;
 import paket.repository.StavkaRepository;
 import paket.service.StavkaService;
@@ -64,11 +65,20 @@ public class JpaStavkaService implements StavkaService {
 		Stavka stavka = stavkaRepository.getOne(id);
 		Proizvod proizvod = stavka.getProizvod();
 		Kupovina kupovina = stavka.getKupovina();
+		User user = kupovina.getUser();
+		List<Stavka> stavke = stavkaRepository.findByIdKupovine(kupovina.getId());
+		Double	x = 0.0 ;
+		for (Stavka s: stavke) {
+			x += s.getCenastavke();
+		  }
+		
 		if( proizvod.getKolicina()- kolicinastavke >= 0   &&  proizvod.getKolicina() >= kolicinastavke 
-			&& kupovina.getUser().getStanje() >= (stavka.getCenastavke() + (proizvod.getCena()*kolicinastavke))  ) {
+			&& user.getStanje() >= ( x + (proizvod.getCena()*kolicinastavke)) ) {
+			
 			proizvod.setKolicina( proizvod.getKolicina() - kolicinastavke ); 
 			stavka.setKolicinastavke(stavka.getKolicinastavke() + kolicinastavke);
 			stavka.setCenastavke(stavka.getCenastavke() + (proizvod.getCena()*kolicinastavke) );
+
 			}
 		else {
 			return null;
