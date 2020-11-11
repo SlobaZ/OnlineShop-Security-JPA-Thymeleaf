@@ -22,7 +22,7 @@ import paket.model.Kupovina;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty; 
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name="user")
@@ -79,7 +79,7 @@ public class User {
 	private String brojracuna;
 	
 	@Column(nullable=false)
-	@Positive(message = "*Only positive number")
+	@PositiveOrZero(message = "*Only positive number")
 	private Double stanje;
 	
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
