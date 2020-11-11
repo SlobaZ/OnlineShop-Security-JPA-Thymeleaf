@@ -77,7 +77,7 @@ public class KupiController {
 	
 	
 	@GetMapping("/user/kupovinastavki")
-	public String getAll(Model model,Principal principal) {
+	public String zapocniKupovinu(Model model,Principal principal) {
 
 		User user =  userService.pronadjiPoEmailu(principal.getName());
 	    model.addAttribute("pozdravnaPorukaUseru",  user.getUsername());
@@ -91,8 +91,8 @@ public class KupiController {
 
 	
 	@RequestMapping(value = "/user/kupitistavku/{id}", method = RequestMethod.GET)
-	public String searchProizvodi(@PathVariable("id") Integer id,
-								  @RequestParam (required = false) int kolicinastavke,
+	public String kupiStavku(@PathVariable("id") Integer id,
+								  @RequestParam (required = false, defaultValue = "0") int kolicinastavke,
 								  HttpServletRequest request, Model model) {
 		
 		  stavkaService.kupiStavku(id,kolicinastavke);
