@@ -49,7 +49,7 @@
    						<td>
    <form th:object="${stavka}" th:action="@{/user/kupitistavku/{id}(id=${stavke.id})}" method="get">
    <input type="number" name="kolicinastavke" id="kolicinastavke" th:value="${kolicinastavke}" placeholder="Kolicina"/>
-   <input type="submit" class="btn btn-primary btn-md" role="button" value="Odaberi Stavku"/> 
+   <input th:if="${stavke.proizvod.kolicina>0}" type="submit" class="btn btn-primary btn-md" role="button" value="Odaberi Stavku"/> 
    </form>
     					</td>
 						<td th:utext="${stavke.cenastavke}"></td>
