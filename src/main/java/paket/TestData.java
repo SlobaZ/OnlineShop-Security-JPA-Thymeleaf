@@ -55,7 +55,7 @@ public class TestData {
 		user1.setFirstname("Administrator");
 		user1.setLastname("Administrator");
 		user1.setEmail("admin@gmail.com");
-		user1.setPassword("$2a$10$hKDVYxLefVHV/vtuPhWD3OigtRyOykRLDdUAp80Z1crSoS1lFqaFS");
+		user1.setPassword("$2a$10$hKDVYxLefVHV/vtuPhWD3OigtRyOykRLDdUAp80Z1crSoS1lFqaFS");    // admin
 		user1.setMesto("AdminMesto");
 		user1.setAdresa("AdminAdresa");
 		user1.setJmbg("1010101010101");
@@ -69,7 +69,7 @@ public class TestData {
 		user2.setFirstname("Vasa");
 		user2.setLastname("Vasic");
 		user2.setEmail("vasa@gmail.com");
-		user2.setPassword("$2a$10$bwQVsArIQJtmkPckmfRZGOEMAGBXcHaziXIEgstc9ePsPG6sYEFK.");
+		user2.setPassword("$2a$10$bwQVsArIQJtmkPckmfRZGOEMAGBXcHaziXIEgstc9ePsPG6sYEFK.");    //  654321
 		user2.setMesto("Beograd");
 		user2.setAdresa("Vojvode Milenka 30");
 		user2.setJmbg("1507956112233");
@@ -83,7 +83,7 @@ public class TestData {
 		user3.setFirstname("Pera");
 		user3.setLastname("Peric");
 		user3.setEmail("pera@gmail.com");
-		user3.setPassword("$2a$10$Locf9fRBO84ejEc/bQFEROChVsd2ixjv4M2kYX6KSLp74iacK.N3W");
+		user3.setPassword("$2a$10$Locf9fRBO84ejEc/bQFEROChVsd2ixjv4M2kYX6KSLp74iacK.N3W");    //  123456
 		user3.setMesto("Nis");
 		user3.setAdresa("Cara Dusana 45");
 		user3.setJmbg("2310974112233");
