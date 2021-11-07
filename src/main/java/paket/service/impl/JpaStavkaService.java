@@ -73,7 +73,7 @@ public class JpaStavkaService implements StavkaService {
 		  }
 		
 		if( proizvod.getKolicina()- kolicinastavke >= 0   &&  proizvod.getKolicina() >= kolicinastavke 
-			&& user.getStanje() >= ( x + (proizvod.getCena()*kolicinastavke)) ) {
+			&& user.getStanje() >= ( x + (proizvod.getCena()*kolicinastavke))   &&  kolicinastavke > 0 ) {
 			
 			proizvod.setKolicina( proizvod.getKolicina() - kolicinastavke ); 
 			stavka.setKolicinastavke(stavka.getKolicinastavke() + kolicinastavke);
