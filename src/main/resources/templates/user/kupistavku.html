@@ -47,17 +47,17 @@
 						<td th:utext="${stavke.proizvod.cena}"> din</td>		
    						<td th:utext="${stavke.kolicinastavke}"> </td> 
    						<td>
-   <form th:object="${stavka}" th:action="@{/user/kupitistavku/{id}(id=${stavke.id})}" method="get">
+   <form th:object="${stavka}" th:action="@{/user/{id}/kupitistavku/{ids}(id=${kupovina.id},ids=${stavke.id})}" method="get">
    <input type="number" name="kolicinastavke" id="kolicinastavke" th:value="${kolicinastavke}" placeholder="Kolicina"/>
    <input th:if="${stavke.proizvod.kolicina>0}" type="submit" class="btn btn-primary btn-md" role="button" value="Odaberi Stavku"/> 
    </form>
     					</td>
 						<td th:utext="${stavke.cenastavke}"></td>
-<td> <a th:href="@{/user/resetujstavku/{id}(id=${stavke.id})}" class="btn btn-danger btn-md" role="button">Resetuj</a> </td>
+<td> <a th:href="@{/user/{id}/resetujstavku/{ids}(id=${kupovina.id},ids=${stavke.id})}" class="btn btn-danger btn-md" role="button">Resetuj</a> </td>
 
 					</tr>
 					
-					<tr style="border=1px solid black">
+					<tr style="border:1px solid black">
 						<td></td>
 						<td></td>
 						<td></td>

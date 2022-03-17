@@ -41,7 +41,7 @@ public class KupiController {
 	@Autowired
 	private ProizvodService proizvodService;
 	
-	static Kupovina kupovina;
+	
 		
 	@GetMapping("/user/napravikupovinu")
 	public String kreirajKupovinu(Model model,Principal principal) {
@@ -49,7 +49,7 @@ public class KupiController {
 		User user =  userService.pronadjiPoEmailu(principal.getName());
 	    model.addAttribute("pozdravnaPorukaUseru", "Welcome " + user.getUsername() + " / " + user.getFirstname() + " " + user.getLastname());
 
-		kupovina = new Kupovina();
+		Kupovina kupovina = new Kupovina();
 		kupovina.setSifra(PomocnaKlasa.DodeliSifru());
 		kupovina.setDatumvreme(PomocnaKlasa.UpisiSadasnjiDatumIVremeSql());
 		kupovina.setDatetime(PomocnaKlasa.PrikaziTekstualnoDatumIVreme(PomocnaKlasa.UpisiSadasnjiDatumIVremeSql()));
@@ -76,12 +76,13 @@ public class KupiController {
 
 	
 	
-	@GetMapping("/user/kupovinastavki")
-	public String zapocniKupovinu(Model model,Principal principal) {
+	@GetMapping("/user/kupovinastavki/{id}")
+	public String zapocniKupovinu(@PathVariable("id") Integer id, Model model,Principal principal) {
 
 		User user =  userService.pronadjiPoEmailu(principal.getName());
 	    model.addAttribute("pozdravnaPorukaUseru",  user.getUsername());
 
+	    Kupovina kupovina = kupovinaService.getOne(id);
 		model.addAttribute("kupovina", kupovina);
 		
 		List<Stavka> stavke = stavkaService.findByIdKupovine(kupovina.getId());
@@ -90,21 +91,22 @@ public class KupiController {
 	}
 
 	
-	@RequestMapping(value = "/user/kupitistavku/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/{id}/kupitistavku/{ids}", method = RequestMethod.GET)
 	public String kupiStavku(@PathVariable("id") Integer id,
-								  @RequestParam (required = false, defaultValue = "0") int kolicinastavke,
-								  HttpServletRequest request, Model model) {
+							 @PathVariable("ids") Integer ids,
+							@RequestParam (required = false, defaultValue = "0") int kolicinastavke,
+							HttpServletRequest request, Model model) {
 		
-		  stavkaService.kupiStavku(id,kolicinastavke);
-		  return "redirect:/user/kupovinastavki";
+		  stavkaService.kupiStavku(ids,kolicinastavke);
+		  return "redirect:/user/kupovinastavki/{id}";
 	}
 	
 
 
-    @GetMapping("/user/resetujstavku/{id}")
-    private String resetujstavku(@PathVariable("id") Integer id){
-    	stavkaService.resetujStavku(id);
-        return "redirect:/user/kupovinastavki";
+    @GetMapping("/user/{id}/resetujstavku/{ids}")
+    private String resetujstavku(@PathVariable("id") Integer id, @PathVariable("ids") Integer ids){
+    	stavkaService.resetujStavku(ids);
+        return "redirect:/user/kupovinastavki/{id}";
     }
 
     

@@ -22,7 +22,7 @@
 </form>	
 
  <div class="col-md-6" >
-<form th:object="${kupovina}" th:action="@{/user/kupovinastavki}" method="get" >
+<form th:object="${kupovina}" th:action="@{/user/kupovinastavki/{id}(id=${kupovina.id})}" method="get" >
 	<h3 th:utext="${kupovina.id}"></h3>
 	<br/>
     <button class="btn btn-lg btn-success btn-block" type="Submit">Zapocni kupovinu</button>
